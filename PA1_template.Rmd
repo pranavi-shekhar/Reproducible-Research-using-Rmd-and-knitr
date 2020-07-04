@@ -11,7 +11,7 @@ library(dplyr)
 library(chron)
 library(lattice)
 ```
----
+
 
 ## Loading and preprocessing the data
 
@@ -19,7 +19,7 @@ library(lattice)
 data  = read.csv("activity.csv")
 data$date = as.Date(data$date,format = "%Y-%m-%d")
 ```
----
+
 
 ## What is mean total number of steps taken per day?
 
@@ -38,7 +38,7 @@ hist(totalsteps$steps , col = "darkslateblue" , main = "Total daily steps" , xla
 summary(totalsteps$steps)
 ```
 
----
+
 
 ## What is the average daily activity pattern?
 
@@ -56,7 +56,7 @@ plot(avgsteps$interval,avgsteps$avg.steps,type = "l", xlab = "Intervals", ylab =
 filter(avgsteps , avg.steps == max(avgsteps$avg.steps))
 ```
 
----
+
 
 ## Imputing missing values
 
@@ -82,7 +82,7 @@ par(lwd = 3)
 hist(totalsteps.imputed$steps , col = "darkslateblue" , main = "Total daily steps" , xlab = "Steps")
 ```
 
----
+
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
