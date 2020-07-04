@@ -5,7 +5,7 @@ output:
     keep_md: true
 ---
 ## Loading the necessary libraries for analysis
-#  
+
 
 ```r
 library(dplyr)
@@ -44,7 +44,7 @@ library(lattice)
 ---
 
 ## Loading and preprocessing the data
-#  
+
 
 ```r
 data  = read.csv("activity.csv")
@@ -53,9 +53,8 @@ data$date = as.Date(data$date,format = "%Y-%m-%d")
 ---
 
 ## What is mean total number of steps taken per day?
-#  
+
 #### 1. *Histogram of the total number of steps taken each day*
-#  
 
 ```r
 # Here, missing values are ignored
@@ -68,7 +67,7 @@ hist(totalsteps$steps , col = "darkslateblue" , main = "Total daily steps" , xla
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 #### 2. *Mean and median of the total number of steps taken per day*
-#
+
 
 ```r
 summary(totalsteps$steps)
@@ -82,9 +81,9 @@ summary(totalsteps$steps)
 ---
 
 ## What is the average daily activity pattern?
-#
+
 #### 1. *Time series plot of the average number of steps taken*
-#
+
 
 ```r
 avgsteps = filter(data , !is.na(steps)) %>% group_by(interval)  %>% summarise(avg.steps = mean(steps))
@@ -101,7 +100,7 @@ plot(avgsteps$interval,avgsteps$avg.steps,type = "l", xlab = "Intervals", ylab =
 ![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 #### 2. *The 5-minute interval that, on average, contains the maximum number of steps*
-#
+
 
 ```r
 filter(avgsteps , avg.steps == max(avgsteps$avg.steps))
@@ -117,9 +116,9 @@ filter(avgsteps , avg.steps == max(avgsteps$avg.steps))
 ---
 
 ## Imputing missing values
-#
+
 #### 1. *Total number of missing values in the dataset * 
-#
+
 
 ```r
 sum(!complete.cases(data))
@@ -128,18 +127,18 @@ sum(!complete.cases(data))
 ```
 ## [1] 2304
 ```
-#
+
 
 #### 2. *Code to describe and show a strategy for imputing missing data*
-#
+
 *Missing values for "steps" are filled in with the average value of "steps" for that 5-minute interval , as shown below* 
 
 ```r
 imputed.data = data %>% group_by(interval)  %>% mutate(steps=ifelse(is.na(steps),mean(steps,na.rm=TRUE),steps))
 ```
-#
+
 #### 3. *Histogram of the total number of steps taken each day after missing values are imputed*
-#
+
 
 ```r
 totalsteps.imputed = aggregate(steps ~ date , data = imputed.data , FUN = sum)
@@ -152,9 +151,9 @@ hist(totalsteps.imputed$steps , col = "darkslateblue" , main = "Total daily step
 ---
 
 ## Are there differences in activity patterns between weekdays and weekends?
-#
+
 #### *Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends*
-#
+
 
 ```r
 week.data = mutate(imputed.data , day_type = ifelse(is.weekend(date) , "Weekend","Weekday")) 
